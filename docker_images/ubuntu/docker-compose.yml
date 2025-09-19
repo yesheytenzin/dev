@@ -1,0 +1,15 @@
+services:
+  ubuntu:
+    image: ubuntu:latest # or ubuntu:24.04 for the latest
+    container_name: ubuntu-2025
+    tty: true             # keeps the container running
+    stdin_open: true      # allows interactive shell
+    volumes:
+      - ./data:/data      # optional: map a host folder to /data in the container
+    networks:
+      - 4it
+
+networks:
+  4it:
+    driver: bridge
+
