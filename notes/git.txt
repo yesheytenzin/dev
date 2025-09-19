@@ -1,0 +1,136 @@
+# git status and git diff  -- to see chnages
+
+#  git log
+git --no-pager log -n 10 --oneline --parents --graphs
+git log --oneline -p   --- to view chnages to each commit
+
+#  git command to cat file using has
+git cat-file -p <hash>    --hash of commit/tree/blob
+
+
+--  tree: git's way of storing a directory
+--  blob: git's way of storing a file
+
+# removing --global makes the config local to the repo
+git config --add --global user.name "ThePrimeagen"
+git config --add --global user.email "the.primeagen@aol.com"
+git config --add --local section.key value
+
+# git config details
+cat .git/config
+git config --get <key>  --- get a single data
+git config --unset <key> --- used to remove config
+git config --unset-all key  ---to unset all values
+git config --remove-section section -- remove section
+
+inode busting issue in log error
+
+# config mostly used
+global: ~/.gitconfig
+local: .git/config
+system: /etc/gitconfig
+worktree: .git/config.worktree
+--- git uses user.name and config from local
+-- git uses global config in home dir
+
+- rename branch
+git branch -m oldname newname
+
+-- set default branch to main
+git config --add --global init.defaultbranch main
+
+--create new branch and switch to it
+git switch -c my_new_branch
+
+git switch prime -- switch branch
+
+# log flags -- makes output easier to read
+The first is --decorate. It can be one of:
+
+    short (the default)
+    full (shows the full ref name)
+    no (no decoration)
+
+Run git log --oneline --graph --all # see entire detail
+
+# merge two branch
+when in main: bit merge barnch1
+
+# incase you mess up commit message
+git commit --amend -m "F: Merge branch 'add_classics'"
+
+fast forward merge and commit
+-- when the branch is just ahead of main we can do fast
+fast forward merge. however it does not ask for commit
+unlike when a branch is quite ahead of main. in this case the
+other branch should be one level ahead of main
+
+rebase -- chnage the most common code base to the
+new code, basically the branch is merged into main
+using fast forward merge --- basically mov the merge base
+
+git switch -c update_dune ab707f4 -- branch off specific
+
+rebase- brinng chnages from main to cur branch
+never rebase a public branch like main
+git rebase main --> chnage the git base to the current branch
+
+# git reset soft
+git reset --soft hash --> soft used to go back a commit
+but keep all chhnages
+git reset --soft HEAD~1 --> go back one commit
+
+git diff --staged -- to see changes in staged files
+git diff  -- to see changes in all files
+
+git reset --hard hash --> hard reset to a commit. removes changes
+from staged files and not untracked files
+
+git remote add origin ../webflyx  ---uri/url is just a repo
+
+git fetch  --- feteches metadat and not files
+
+git merge remote/branch  --merges branch from remote
+and fethes all the file contents
+
+git ls-remote -- check origin
+
+git config --add --local pull.rebase false
+Run git config pull.rebase false to make sure git
+will merge on a pull
+
+git config --global pull.rebase true  -->  make sure to rebase on
+pull rather than merge
+
+git restore --staged file/path  --> unstage a file
+
+*.txt
+!important.txt  --> git ignore all except this file
+
+/main.py --in root dir ignore this file only
+
+# git reflog --- read as ref log
+track all the littles steps in branch, commit and head
+
+git merge  HEAD@{2} --->  go and merge with prev commit
+
+reset --hard to go back in commit and resolve merge conflicts differently
+
+git merge --abort -- abort merge
+
+The git checkout command can checkout the individual changes during a merge conflict using the --theirs or --ours flags.
+
+    --ours will overwrite the file with the changes from the branch you are currently on and merging into
+    --theirs will overwrite the file with the changes from the branch you are merging into the current branch
+
+➜  megacorp git:(main) ✗ git checkout --theirs customers/all.csv
+Updated 1 path from the index
+➜  megacorp git:(main) ✗ git checkout --ours orgs/partners.txt
+Updated 1 path from the index
+➜  megacorp git:(main) ✗
+
+"Accept incoming change" is the same as git checkout --theirs,
+and "Accept current change" is the same as git checkout --ours
+
+
+

@@ -1,0 +1,2 @@
+# reset user password for domjudge
+docker exec -it domjudge-server php webapp/bin/console domjudge:reset-user-password admin

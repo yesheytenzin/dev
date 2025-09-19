@@ -1,0 +1,4 @@
+rofi ---demu
+feh --background
+i3 -- wm
+code --
