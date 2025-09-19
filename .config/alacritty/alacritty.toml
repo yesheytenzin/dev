@@ -1,0 +1,19 @@
+import = [
+  "/home/yeshey/.config/alacritty/themes/themes/rose_pine.toml"
+]
+
+[font]
+size = 12.0
+
+[window]
+opacity = 0.75
+
+# Override selection colors for better visibility
+[colors.selection]
+text = '#000000'         # black text when selected
+background = '#B0C4DE'   # light blue highlight
+
+# Optional: adjust cursor color if needed
+#[colors.cursor]
+#text = '#e0def4'         # keep as in theme
+#cursor = '#524f67'       # keep as in theme

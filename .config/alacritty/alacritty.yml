@@ -1,0 +1,31 @@
+window:
+  opacity: 0.8  # Adjust between 0.0 (fully transparent) and 1.0 (opaque)
+  decorations: none  # Optional: removes window borders for a cleaner look
+  padding:
+    x: 5
+    y: 5
+
+background_opacity: 0.8  # For older Alacritty versions, if `window.opacity` doesn't work
+
+colors:
+  primary:
+    background: '#000000'  # Black background for a glassy effect
+    foreground: '#ffffff'  # White text for contrast
+  normal:
+    black:   '#000000'
+    red:     '#ff5555'
+    green:   '#55ff55'
+    yellow:  '#ffff55'
+    blue:    '#5555ff'
+    magenta: '#ff55ff'
+    cyan:    '#55ffff'
+    white:   '#bbbbbb'
+  bright:
+    black:   '#555555'
+    red:     '#ff5555'
+    green:   '#55ff55'
+    yellow:  '#ffff55'
+    blue:    '#5555ff'
+    magenta: '#ff55ff'
+    cyan:    '#55ffff'
+    white:   '#ffffff'
