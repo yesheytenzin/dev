@@ -1,16 +1,10 @@
 #!/bin/bash
 echo "setting up i3...."
-sudo apt install i3 i3-wm i3status
+sudo apt install i3 i3-wm i3status i3lock
 cp -r ~/personal/dev-tool/.config/i3 ~/.config
 
-echo "setting up i3lock-color"
-git clone https://github.com/Raymo111/i3lock-color.git
-cd i3lock-color
-./install-i3lock-color.sh
-
-cd ..
-echo "removing i3lock-color dir"
-rm -rf i3lock-color
 
 echo "setting up i3status"
 cp -r ~/personal/dev-tool/.config/i3status ~/.config
+mkdir -p ~/.config/picom
+cp -r ~/personal/dev-tool/.config/picom/picom.conf ~/.config/picom
