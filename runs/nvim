@@ -1,0 +1,60 @@
+#!/bin/bash
+
+set -e  # Exit on any error
+
+echo "Installing Neovim..."
+sudo rm -rf /opt/nvim  # Ensure no previous installation exists
+sudo tar -C /opt -xzf nvim-linux-x86_64.tar.gz
+sudo mv /opt/nvim-linux-x86_64 /opt/nvim
+
+echo "Copying Neovim configuration..."
+sudo cp -r ~/personal/dev-tool/.config/nvim ~/.config
+
+echo "Installing Lua and LuaRocks..."
+curl -L -R -O https://www.lua.org/ftp/lua-5.1.5.tar.gz
+tar zxf lua-5.1.5.tar.gz
+cd lua-5.1.5
+make linux
+sudo make install
+
+#rm lua-5.1.5.tar.gz
+
+#wget https://luarocks.org/releases/luarocks-3.12.2.tar.gz
+#curl -L -O https://luarocks.org/releases/luarocks-3.12.2.tar.gz
+tar zxpf luarocks-3.12.2.tar.gz
+cd luarocks-3.12.2
+./configure --with-lua=/usr/local --with-lua-bin=/usr/local/bin --lua-version=5.1
+make
+sudo make install
+
+#rm luarocks-3.12.2.tar.gz
+
+sudo luarocks install luasocket
+
+lua -v
+
+# Clone Neovim plugins from ThePrimeagen
+clone_if_not_exist() {
+  local repo_url=$1
+  local target_dir=$2
+  local expanded_target_dir=$(eval echo $target_dir)  # Expanding the ~ to the full path
+
+  if [ ! -d "$expanded_target_dir" ]; then
+    echo "Cloning $repo_url into $expanded_target_dir..."
+    git clone "$repo_url" "$expanded_target_dir"
+  else
+    echo "$expanded_target_dir already exists, skipping clone."
+  fi
+}
+
+# Cloning plugins
+clone_if_not_exist "https://github.com/ThePrimeagen/caleb.git" "~/personal/caleb"
+clone_if_not_exist "https://github.com/ThePrimeagen/harpoon.git" "~/personal/harpoon"
+clone_if_not_exist "https://github.com/ThePrimeagen/vim-apm.git" "~/personal/vim_apm"
+clone_if_not_exist "https://github.com/ThePrimeagen/vim-with-me.git" "~/personal/vim-with-me"
+
+echo "Neovim setup complete!"
+#echo "Cleaning up installation files..."
+#rm -rf lua-5.4.8 luarocks-3.12.2
+
+
