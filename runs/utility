@@ -6,6 +6,8 @@ sudo apt update
 sudo apt install -y brightnessctl feh curl git alacritty zsh rofi
 sudo apt install -y build-essential gcc g++ make cmake gdb ansible
 sudo apt install -y flameshot libreadline-dev xclip
+sudo apt install -y pulseaudio
+
 
 echo "Setting up Oh My Zsh..."
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
