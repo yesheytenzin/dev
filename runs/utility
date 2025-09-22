@@ -6,7 +6,7 @@ sudo apt update
 sudo apt install -y brightnessctl feh curl git alacritty zsh rofi
 sudo apt install -y build-essential gcc g++ make cmake gdb ansible
 sudo apt install -y flameshot libreadline-dev xclip
-sudo apt install -y pulseaudio libreoffice
+sudo apt install -y pulseaudio libreoffice picom
 
 
 echo "Setting up Oh My Zsh..."
