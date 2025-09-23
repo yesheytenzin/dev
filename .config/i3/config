@@ -181,6 +181,7 @@ bindsym $mod+r mode "resize"
 bar {
         status_command i3status
 	tray_output primary
+	position top
 }
 client.focused          #ffffff #ffffff #000000 #ffffff
 client.focused_inactive #ffffff #ffffff #000000 #ffffff

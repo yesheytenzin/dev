@@ -15,3 +15,6 @@ export PATH=$PATH:/opt/nvim/bin
 export PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:$PATH
 export PATH=$HOME/.local/scripts:$PATH
 bindkey -s ^f "tmux-sessionizer\n"
+
+# alias
+alias vim="nvim"

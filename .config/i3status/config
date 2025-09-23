@@ -11,17 +11,17 @@ general {
         interval = 5
 }
 
+order += "tztime local"
 order += "disk /"
 order += "battery all"
 order += "load"
-order += "tztime local"
 
 battery all {
-        format = "%status %percentage %remaining"
+        format = "%status %percentage"
 }
 
 tztime local {
-        format = "%Y-%m-%d %H:%M:%S"
+    format = "%A %d %I:%M %p"
 }
 
 load {
