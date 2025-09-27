@@ -1,0 +1,331 @@
+# CRM-IMS — In‑Depth System Design
+
+**Project:** CRM-IMS (Customer Relationship Management — Inventory Management System)
+
+**Target org:** IT Company
+
+**Academic year:** 2024‑25
+
+---
+
+## 1. Summary / Purpose
+
+This document describes a complete, in‑depth system design for the CRM‑IMS project. It covers functional and non‑functional requirements, high-level and low-level architecture, data model, API design, UI/UX overview, security, integrations, deployment, scaling, operational runbook, testing strategy, and an estimated phased delivery plan suitable for a final-year capstone.
+
+---
+
+## 2. Requirements
+
+### Functional
+
+* Customer profile & contact database
+* Leads & opportunities tracking
+* Project management & milestones
+* Communication history & logs
+* Support ticketing
+* Sales pipeline & forecasting
+* Hardware & software asset tracking
+* Stock monitoring, PO management, vendor management
+* Asset allocation to projects/customers
+* Depreciation & maintenance tracking
+* Project-based inventory allocation & demand planning
+* Integrated dashboards & reporting
+* Role-based access control, audit trails
+
+### Non-functional
+
+* Responsive web frontend, good UX
+* Secure authentication & authorization
+* Scalable for multiple concurrent users
+* Real-time updates for critical actions
+* Maintainable, testable codebase
+* Backups, monitoring, logging
+
+---
+
+## 3. High-Level Architecture
+
+**Components:**
+
+* Frontend: React + responsive UI
+* Backend API: Node.js + Express (RESTful)
+* Database: PostgreSQL (relational)
+* Cache: Redis for sessions and frequently accessed data
+* Message Queue: RabbitMQ / Redis Streams for async tasks
+* File Storage: S3 or MinIO for attachments
+* Search: ElasticSearch for fast lookup (optional)
+* Authentication: JWT + refresh tokens, OAuth2 optional
+* Task Scheduler: Cron jobs / Kubernetes CronJob for scheduled tasks
+* Reporting: ETL jobs to a reporting schema or data warehouse
+* WebSocket: Real-time updates for notifications
+
+**Deployment topology:**
+
+* Frontend served via CDN
+* Backend running in containers behind a load balancer
+* Managed PostgreSQL with replication for HA
+* Redis cache
+* Object storage for attachments
+* CI/CD pipelines for build/test/deploy
+
+---
+
+## 4. Data Model
+
+### Core Tables
+
+**Users, Roles, Customers, Contacts, Leads, Projects, Milestones, Tickets, Assets, Vendors, PurchaseOrders, AssetAllocations, MaintenanceLogs, AuditLogs, Forecasts**
+
+**Indexes & constraints:**
+
+* Unique constraints (users.email, assets.sku)
+* Foreign key constraints
+* Indexes on frequently filtered columns
+
+---
+
+## 5. API Design
+
+**Authentication:**
+
+* POST /api/v1/auth/login
+* POST /api/v1/auth/refresh
+* POST /api/v1/auth/logout
+
+**Users & Roles:**
+
+* GET /api/v1/users
+* POST /api/v1/users
+* GET /api/v1/users/\:id
+* PUT /api/v1/users/\:id
+
+**Customers & Contacts:**
+
+* GET /api/v1/customers
+* POST /api/v1/customers
+* GET /api/v1/customers/\:id
+* GET /api/v1/customers/\:id/contacts
+
+**Leads & Projects:**
+
+* GET /api/v1/leads
+* POST /api/v1/leads
+* POST /api/v1/opportunities
+* GET /api/v1/projects
+* POST /api/v1/projects
+* GET /api/v1/projects/\:id/milestones
+
+**Inventory:**
+
+* GET /api/v1/assets
+* POST /api/v1/assets
+* POST /api/v1/assets/\:id/allocate
+* POST /api/v1/assets/\:id/return
+* GET /api/v1/vendors
+* POST /api/v1/purchase-orders
+
+**Tickets:**
+
+* POST /api/v1/tickets
+* GET /api/v1/tickets
+* POST /api/v1/tickets/\:id/comments
+
+**Reports:**
+
+* GET /api/v1/reports/stock-levels
+* GET /api/v1/reports/sales-pipeline
+* GET /api/v1/reports/demand-forecast
+
+**Design notes:**
+
+* Pagination, filtering, sorting
+* Consistent error format
+* Bulk endpoints for batch operations
+
+---
+
+## 6. UI/UX Overview
+
+**Pages/Modules:**
+
+* Login / SSO
+* Dashboard (role-specific)
+* Customers & Contacts
+* Projects & Milestones
+* Assets, Vendors, Purchase Orders
+* Tickets / Support
+* Reports
+* Admin (Users, Roles, Audit Logs)
+
+**UX Principles:**
+
+* Prominent primary actions
+* Modals for quick actions
+* Bulk actions in tables
+* Responsive and mobile-friendly design
+
+---
+
+## 7. Demand Forecasting
+
+**Approach:**
+
+1. Start with moving average / exponential smoothing
+2. Seasonal adjustments (Holt-Winters)
+3. Time-series models (ARIMA, Prophet) or ML regressors using project pipeline & asset usage
+4. Output: reorder quantity, reorder date, safety stock
+5. Nightly ETL job stores predictions in Forecasts table
+
+---
+
+## 8. Security & Access Control
+
+* HTTPS / TLS
+* Passwords with bcrypt/argon2
+* JWT + refresh tokens, optional OAuth2/SSO
+* RBAC for endpoints
+* Field-level encryption for PII if required
+* Audit logs for sensitive actions
+* Rate limiting, input validation, file scanning
+* Backup encryption
+
+---
+
+## 9. Scalability & Performance
+
+* Horizontal scaling of Node API
+* Postgres replication & partitioning
+* Redis caching
+* Pagination and query limits
+* Async processing for heavy tasks
+* Monitoring & observability (Prometheus, Grafana, ELK)
+
+---
+
+## 10. Reliability & Backup
+
+* Daily backups + WAL for point-in-time recovery
+* Replication & failover for DB
+* Health checks on containers
+* Multi-AZ deployment
+
+---
+
+## 11. Monitoring & Logging
+
+* Centralized logs, structured JSON
+* Audit logs
+* System and business metrics dashboards
+* Error tracking with Sentry
+
+---
+
+## 12. CI/CD & Dev Workflow
+
+* Git feature branches, PR review
+* Automated tests in CI (unit, integration, lint)
+* Build → Test → Deploy to Staging → Smoke → Prod
+* Infrastructure as code with Terraform (if cloud)
+
+---
+
+## 13. Testing Strategy
+
+* Unit tests for business logic
+* Integration tests for API
+* End-to-end tests (Cypress)
+* Load testing (k6)
+* Security tests (SAST, dependency scanning)
+
+---
+
+## 14. Sample DB Schema (DDL Sketch)
+
+```sql
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+CREATE TABLE users (id uuid PRIMARY KEY DEFAULT uuid_generate_v4(), name TEXT, email TEXT UNIQUE NOT NULL, password_hash TEXT NOT NULL, role_id uuid REFERENCES roles(id), is_active boolean DEFAULT true, created_at timestamptz DEFAULT now(), updated_at timestamptz DEFAULT now());
+CREATE TABLE assets (id uuid PRIMARY KEY DEFAULT uuid_generate_v4(), sku TEXT UNIQUE NOT NULL, name TEXT NOT NULL, category TEXT, total_quantity integer DEFAULT 0, available_quantity integer DEFAULT 0, vendor_id uuid, status TEXT, purchase_price numeric, purchase_date date, depreciation_method TEXT, created_at timestamptz DEFAULT now());
+```
+
+---
+
+## 15. Example Sequence - Allocate Asset to Project
+
+1. User clicks Allocate
+2. Frontend calls POST /assets/\:id/allocate
+3. API validates permissions & quantity
+4. Create AssetAllocation row, decrement available\_quantity, create AuditLog, push queue message
+5. Worker triggers notifications and forecast update
+6. API returns success, WebSocket pushes updates
+
+---
+
+## 16. Audit, Compliance & Data Retention
+
+* Audit logs for CRUD on sensitive entities
+* Configurable retention (e.g., 7 years for financial)
+* Exportable CSV/PDF for audit
+
+---
+
+## 17. Risk Analysis & Mitigations
+
+* Stock data inconsistency → transactions, locks, audit logs
+* Forecast inaccuracy → start simple, improve with ML
+* DB bottleneck → replicas, caching, partitioning
+
+---
+
+## 18. Operational Runbook
+
+* Restore DB from backup
+* Rotate API keys/tokens
+* Run forecast job manually
+* Inventory reconciliation via UI or CSV import/export
+
+---
+
+## 19. Phase-wise Implementation Plan
+
+**Phase 0 — Setup (1–2 weeks)**
+
+* Repo, CI/CD, infra, auth
+  **Phase 1 — Core CRM & Inventory (4–6 weeks)**
+* Customers, contacts, leads, projects
+* Assets CRUD, allocate/return, vendors, POs
+  **Phase 2 — Workflows & Reporting (3–4 weeks)**
+* Tickets, milestones, activity timeline
+* Reports: stock levels, sales pipeline
+* Audit logs, export
+  **Phase 3 — Forecasting & Automation (3–4 weeks)**
+* Demand forecasting job, alerts
+* Background workers, queues
+  **Phase 4 — Hardening & Deployment (2–3 weeks)**
+* Tests, monitoring, backups, security review, docs
+
+---
+
+## 20. Appendix — Recommended Tech Stack
+
+* Frontend: React + TypeScript, React Query / SWR, MUI or Tailwind UI
+* Backend: Node.js + TypeScript, Express/NestJS, Prisma/Knex
+* DB: PostgreSQL
+* Cache: Redis
+* Queue: RabbitMQ / Redis Streams
+* Storage: AWS S3 / MinIO
+* Auth: JWT + refresh, optional Keycloak
+* Infrastructure: Docker, Kubernetes, Terraform
+* Analytics: Prometheus + Grafana, ELK for logs
+
+---
+
+## 21. Diagrams & Documentation (Next Steps)
+
+* ER diagram for all tables
+* Sequence diagrams for key workflows (allocate asset, create ticket, update forecast)
+* OpenAPI (Swagger) spec for endpoints
+* Starter code scaffolds for frontend and backend
+* Prioritized backlog with user stories for each sprint
+
+*End of document.*
+
