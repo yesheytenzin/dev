@@ -56,5 +56,8 @@ clone_if_not_exist "https://github.com/ThePrimeagen/vim-with-me.git" "~/personal
 echo "Neovim setup complete!"
 #echo "Cleaning up installation files..."
 #rm -rf lua-5.4.8 luarocks-3.12.2
-
+cd
+cd personal/harpoon
+git switch harpoon2
+git pull origin harpoon2
 
