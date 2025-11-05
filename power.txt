@@ -1,0 +1,4 @@
+# power management
+yay -S laptop-mode-tools auto-cpufreq
+sudo systemctl enable laptop-mode --now
+
