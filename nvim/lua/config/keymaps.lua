@@ -33,3 +33,9 @@ vim.keymap.set("n", "<leader>tt", ":botright split | resize 15 | terminal<CR>", 
 -- Exit terminal mode with <Esc>
 vim.keymap.set("t", "<Esc>", "<C-\\><C-n>", { noremap = true, silent = true })
 
+-- Hover documentation
+vim.keymap.set("n", "K", vim.lsp.buf.hover, { noremap = true, silent = true })
+
+-- Signature help (function parameters)
+vim.keymap.set("n", "<leader>sh", vim.lsp.buf.signature_help, { noremap = true, silent = true })
+
