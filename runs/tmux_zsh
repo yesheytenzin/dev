@@ -5,6 +5,6 @@ mkdir -p ~/.local/scripts
 cp ~/personal/dev-tool/.config/tmux/tmux-sessionizer ~/.local/scripts/tmux-sessionizer
 cp ~/personal/dev-tool/.tmux.conf ~/
 
-echo "setup .zshrc"
-cp ~/personal/dev-tool/.zshrc ~/
+#echo "setup .zshrc"
+#cp ~/personal/dev-tool/.zshrc ~/
 
