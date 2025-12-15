@@ -1,0 +1,10 @@
+sudo nano /etc/kernel/cmdline
+quiet splash cryptdevice=PARTUUID=d80ad27e-d08a-457c-a6b1-1e9700dded27:root nvidia-drm.modeset=1
+
+sudo mkinitcpio -P
+
+verify
+cat /proc/cmdline
+nvidia-smi
+
+--to use intel to render instead of nvidia
