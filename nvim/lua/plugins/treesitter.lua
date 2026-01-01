@@ -1,14 +1,30 @@
-return {
-  {
+-- return {
+  -- {
+    -- "nvim-treesitter/nvim-treesitter",
+    -- run = ":TSUpdate",
+    -- config = function()
+      -- require'nvim-treesitter.configs'.setup {
+        -- ensure_installed = { "c", "cpp", "lua", "python", "javascript" ,"go", "rust"},
+        -- highlight = { enable = true },
+        -- indent = { enable = true },
+      -- }
+    -- end
+  -- }
+-- }
+local M = {
     "nvim-treesitter/nvim-treesitter",
-    run = ":TSUpdate",
-    config = function()
-      require'nvim-treesitter.configs'.setup {
-        ensure_installed = { "c", "cpp", "lua", "python", "javascript" },
-        highlight = { enable = true },
-        indent = { enable = true },
-      }
-    end
-  }
+    build = "TSUpdate",
+	lazy = false,   -- We want to see the highlighting since the start, so false
 }
 
+function M.config()
+    require "nvim-treesitter.configs".setup {
+        ensure_installed = { "c", "lua", "rust" , "bash", "go", "cpp", "javascript"},
+        sync_install = true,
+        auto_install = true,
+        highlight = { enable = true },
+        indent = { enable = true },
+    }
+end
+
+return M

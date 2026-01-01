@@ -27,6 +27,6 @@ require("lazy").setup({
     { import = "plugins" }, -- automatically load everything inside lua/plugins/
   },
   install = { colorscheme = { "rose-pine" } }, -- install rose-pine as default theme
-  checker = { enabled = true }, -- auto-check plugin updates
+  checker = { enabled = false }, -- auto-check plugin updates
 })
 
