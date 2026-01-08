@@ -1,0 +1,6 @@
+#!/bin/bash
+
+echo "cp harpoon fix file"
+cp ~/personal/dev/.config/fix/init.lua ~/personal/harpoon/lua/harpoon
+
+echo "success"
