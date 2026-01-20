@@ -7,7 +7,7 @@ end
 -- Minimal lualine setup for Option C
 lualine.setup({
   options = {
-    globalstatus = true,               -- one statusline for all windows
+    -- globalstatus = true,               -- one statusline for all windows
     theme = "auto",                    -- automatically match your colorscheme
     disabled_filetypes = { "NvimTree" }, -- hide statusline for NvimTree
   },
