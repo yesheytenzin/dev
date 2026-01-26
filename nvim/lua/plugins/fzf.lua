@@ -11,8 +11,8 @@ return {
     init = function()
       vim.g.fzf_layout = {
         window = {
-          width = 0.4,
-          height = 0.3,
+          width = 1.0,
+          height = 1.0,
         },
       }
     end,

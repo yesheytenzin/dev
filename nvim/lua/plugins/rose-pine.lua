@@ -14,7 +14,6 @@ return {
     end,
   },
 
-  -- 🌹 Rose Pine theme
   {
     "rose-pine/neovim",
     name = "rose-pine",
@@ -27,7 +26,7 @@ return {
         disable_background = false,
       })
       -- Uncomment this to use rose-pine instead
-      -- vim.cmd.colorscheme("rose-pine")
+      vim.cmd.colorscheme("rose-pine")
     end,
   },
 }

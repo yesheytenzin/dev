@@ -26,7 +26,7 @@ return {
     local ts_undo = require('telescope-undo.actions')
 
     -- Fullscreen layout config
-    local h_pct, w_pct = 0.95, 0.95  -- nearly full screen
+    local h_pct, w_pct = 1.0, 1.0  -- nearly full screen
     local fullscreen_setup = {
       borderchars = { '─', '│', '─', '│', '┌', '┐', '┘', '└' },
       preview = { hide_on_startup = false },
