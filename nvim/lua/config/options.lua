@@ -22,3 +22,12 @@ opt.undodir = vim.fn.stdpath("data") .. "/undo"
 if vim.fn.has("termguicolors") == 1 then
   opt.termguicolors = true
 end
+
+-- Start Neovim server for remote control (enables theme-change hooks)
+-- Check if server is already running, if not start one
+vim.defer_fn(function()
+  if vim.v.servername == "" then
+    local server_name = vim.fn.stdpath("run") .. "/nvim." .. vim.fn.getpid() .. ".sock"
+    vim.fn.serverstart(server_name)
+  end
+end, 100)
