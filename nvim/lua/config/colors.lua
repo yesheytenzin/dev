@@ -28,6 +28,7 @@ local theme_map = {
   ["matte-black"] = "tokyonight", -- dark theme fallback
   ["ristretto"] = "everforest",  -- similar earthy tones
   ["flexoki-light"] = "flexoki-light",  -- light theme
+  ["one-dark-pro"] = "onedark"
 }
 
 -- Apply theme based on system theme
