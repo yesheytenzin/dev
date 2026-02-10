@@ -39,7 +39,7 @@ vim.keymap.set("n", "K", vim.lsp.buf.hover, { noremap = true, silent = true })
 -- Signature help (function parameters)
 vim.keymap.set("n", "<leader>sh", vim.lsp.buf.signature_help, { noremap = true, silent = true })
 
-
+vim.keymap.set('n', '<Leader>e', ':e .<CR>', { noremap = true, silent = true })
 --- undotree keymaps
 vim.keymap.set("n", "<leader>u", vim.cmd.UndotreeToggle)
 vim.keymap.set("n", "<leader>gs", vim.cmd.Git)
