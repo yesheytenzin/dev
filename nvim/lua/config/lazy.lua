@@ -19,7 +19,7 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 -- Set leader keys before plugins load
-vim.g.mapleader = ","
+vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 
 -- Setup lazy.nvim
