@@ -1,9 +1,10 @@
 local map = vim.keymap.set
 local opts = { noremap = true, silent = true }
 
+-- Space as leader is set in lazy.lua
+
 -- General
-map("n", "<Space>", "", {})  -- Space as leader
-map("n", "<>h", ":nohlsearch<CR>", opts)  -- Clear search highlight
+map("n", "<leader>h", ":nohlsearch<CR>", opts)
 
 -- Window navigation
 map("n", "<C-h>", "<C-w>h", opts)
@@ -12,9 +13,9 @@ map("n", "<C-k>", "<C-w>k", opts)
 map("n", "<C-l>", "<C-w>l", opts)
 
 -- Buffer navigation
-map("n", "<>bn", ":bnext<CR>", opts)
-map("n", "<>bp", ":bprevious<CR>", opts)
-map("n", "<>bd", ":bdelete<CR>", opts)
+map("n", "<leader>bn", ":bnext<CR>", opts)
+map("n", "<leader>bp", ":bprevious<CR>", opts)
+map("n", "<leader>bd", ":bdelete<CR>", opts)
 
 -- Resize windows
 map("n", "<C-Up>", ":resize +2<CR>", opts)
@@ -22,33 +23,23 @@ map("n", "<C-Down>", ":resize -2<CR>", opts)
 map("n", "<C-Left>", ":vertical resize -2<CR>", opts)
 map("n", "<C-Right>", ":vertical resize +2<CR>", opts)
 
--- FZF
-map("n", "<>ff", ":Files<CR>", opts)
-map("n", "<>fg", ":GFiles<CR>", opts)
-map("n", "<>fb", ":Buffers<CR>", opts)
+-- FZF (legacy - telescope is preferred)
+map("n", "<leader>ff", ":Files<CR>", opts)
+map("n", "<leader>fg", ":GFiles<CR>", opts)
+map("n", "<leader>fb", ":Buffers<CR>", opts)
 
--- Open terminal at the bottom
-vim.keymap.set("n", "<leader>tt", ":botright vsplit| vertical resize 75% | terminal<CR>", { noremap = true, silent = true })
+-- Terminal
+map("n", "<leader>tt", ":botright vsplit| vertical resize 75% | terminal<CR>", opts)
+map("t", "<Esc>", "<C-\\><C-n>", opts)
 
--- Exit terminal mode with <Esc>
-vim.keymap.set("t", "<Esc>", "<C-\\><C-n>", { noremap = true, silent = true })
+-- LSP
+map("n", "K", vim.lsp.buf.hover, opts)
+map("n", "<leader>sh", vim.lsp.buf.signature_help, opts)
+map({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, opts)
 
--- Hover documentation
-vim.keymap.set("n", "K", vim.lsp.buf.hover, { noremap = true, silent = true })
+-- Files
+map("n", "<leader>e", ":e .<CR>", opts)
 
--- Signature help (function parameters)
-vim.keymap.set("n", "<leader>sh", vim.lsp.buf.signature_help, { noremap = true, silent = true })
-
-vim.keymap.set('n', '<Leader>e', ':e .<CR>', { noremap = true, silent = true })
---- undotree keymaps
-vim.keymap.set("n", "<leader>u", vim.cmd.UndotreeToggle)
-vim.keymap.set("n", "<leader>gs", vim.cmd.Git)
-
--- code actions
--- Code actions
-vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, {
-  noremap = true,
-  silent = true,
-  desc = "LSP Code Action",
-})
-
+-- Git
+map("n", "<leader>u", vim.cmd.UndotreeToggle, opts)
+map("n", "<leader>gs", vim.cmd.Git, opts)

@@ -14,7 +14,7 @@ opt.scrolloff = 5
 opt.fillchars = { eob = " " }
 
 opt.laststatus = 3  -- for avante (commented out to disable statusline)
-
+vim.g.lazyvim_check_order = false
 -- persistent undo
 opt.undofile = true
 opt.undodir = vim.fn.stdpath("data") .. "/undo"

@@ -25,9 +25,14 @@ vim.g.maplocalleader = "\\"
 -- Setup lazy.nvim
 require("lazy").setup({
   spec = {
-    { import = "plugins" }, -- automatically load everything inside lua/plugins/
+    { import = "plugins.ui" },
+    { import = "plugins.lsp" },
+    { import = "plugins.tools" },
+    { import = "plugins.theme" },
+    { import = "plugins.all-theme" },
+    { import = "plugins.hot-reload" },
   },
-  install = { colorscheme = { "rose-pine" } }, -- install rose-pine as default theme
-  checker = { enabled = false }, -- auto-check plugin updates
+  install = { colorscheme = { "catppuccin" } },
+  checker = { enabled = false },
 })
 
