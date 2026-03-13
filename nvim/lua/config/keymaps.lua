@@ -17,6 +17,12 @@ map("n", "<leader>bn", ":bnext<CR>", opts)
 map("n", "<leader>bp", ":bprevious<CR>", opts)
 map("n", "<leader>bd", ":bdelete<CR>", opts)
 
+-- Tab navigation
+map("n", "<leader>tn", ":tabnext<CR>", opts)
+map("n", "<leader>tp", ":tabprevious<CR>", opts)
+map("n", "<leader>te", ":tabnew<CR>", opts)
+map("n", "<leader>tq", ":tabclose<CR>", opts)
+
 -- Resize windows
 map("n", "<C-Up>", ":resize +2<CR>", opts)
 map("n", "<C-Down>", ":resize -2<CR>", opts)
