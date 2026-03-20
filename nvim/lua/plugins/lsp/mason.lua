@@ -1,127 +1,139 @@
 return {
-  -- Mason (package manager for LSPs, formatters, linters, debuggers…)
   {
     "mason-org/mason.nvim",
-    lazy = true,   -- loaded on demand via :Mason or when needed
+    lazy = true,
     cmd = "Mason",
     config = function()
-      require("mason").setup({
-        ui = { border = "rounded" },  -- nicer look (optional)
-      })
+      require("mason").setup()
     end,
   },
 
-  -- Bridge: auto-install + auto-enable LSP servers from mason via lspconfig names
   {
     "mason-org/mason-lspconfig.nvim",
     dependencies = {
       "mason-org/mason.nvim",
       "neovim/nvim-lspconfig",
     },
-    lazy = true,
-    cmd = { "LspInstall", "LspUninstall" },
-    event = { "BufReadPre", "BufNewFile" },  -- lazy-load when opening files
+    event = { "BufReadPre", "BufNewFile" },
 
     opts = {
-      automatic_installation = true,   -- install missing servers from ensure_installed
-      -- automatic_enable     = true,  -- default = true → auto vim.lsp.enable()
-	  ensure_installed = {
-  -- JavaScript/TypeScript + frontend
-  "ts_ls", "vtsls", "volar", "tailwindcss", "html", "cssls", "jsonls", "emmet_ls", "eslint", "biome",
-
-  -- Python
-  "basedpyright", "ruff", "pyright", "pylsp",
-
-  -- Go / Rust / Systems
-  "gopls", "rust_analyzer", "clangd", "zls",     -- Zig
-
-  -- JVM / .NET
-  "jdtls", "kotlin_language_server", "omnisharp",
-
-  -- Web / Other frontend
-  "svelte", "astro", "vuels", "prismals",
-
-  -- Scripting / Shell
-  "bashls", "awk_ls",
-
-  -- Config / Markup / Infra
-  "yamlls", "marksman",     -- Markdown
-  "dockerls", "docker_compose_language_service",
-  "terraformls", "helm_ls", "ansiblels",
-  "sqlls", "taplo",         -- TOML
-  "lemminx",                -- XML
-  "autotools_ls",
-
-  -- Others (PHP, etc.)
-  "intelephense",           -- PHP
-  "typst_lsp",              -- Typst
-  "ltex", "harper_ls",      -- better spell/grammar for md/tex/plaintext
-  "typos_lsp",              -- typo detection in code
-}
+      automatic_installation = true,
+      ensure_installed = {
+        "vtsls", "tailwindcss", "html", "cssls", "jsonls", "emmet_ls",
+        "pyright",
+        "gopls", "rust_analyzer", "clangd", "zls",
+        "jdtls", "kotlin_language_server", "omnisharp",
+        "volar", "prismals",
+        "bashls", "awk_ls",
+        "yamlls", "marksman",
+        "dockerls", "docker_compose_language_service",
+        "terraformls", "helm_ls", "ansiblels",
+        "sqlls", "taplo",
+      },
     },
 
     config = function(_, opts)
       require("mason-lspconfig").setup(opts)
 
       local capabilities = vim.lsp.protocol.make_client_capabilities()
+      local on_attach = function(_, _) end
 
-      -- If you later add completion → uncomment one of these:
-      -- capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
-      -- capabilities = require("blink.cmp").get_lsp_capabilities(capabilities)
-
-      -- Empty → NO automatic keymaps / actions added
-      local on_attach = function(client, bufnr)
-        -- intentionally empty — add your own keymaps elsewhere if you want
+      -------------------------------------------------
+      -- DEFAULT: configure all servers
+      -------------------------------------------------
+      for _, server in ipairs(opts.ensure_installed) do
+        vim.lsp.config(server, {
+          capabilities = capabilities,
+          on_attach = on_attach,
+        })
+        vim.lsp.enable(server)
       end
 
-      -- Only override the servers that usually need custom settings
+      -------------------------------------------------
+      -- OVERRIDES
+      -------------------------------------------------
+
       vim.lsp.config("lua_ls", {
         capabilities = capabilities,
-        on_attach    = on_attach,
+        on_attach = on_attach,
         settings = {
           Lua = {
             diagnostics = { globals = { "vim", "require" } },
-            workspace   = { checkThirdParty = false },
-            telemetry   = { enable = false },
-            hint        = { enable = true },  -- inlay hints
+            workspace = { checkThirdParty = false },
+            telemetry = { enable = false },
           },
         },
       })
 
-      vim.lsp.config("basedpyright", {
+      vim.lsp.config("pyright", {
         capabilities = capabilities,
-        on_attach    = on_attach,
+        on_attach = on_attach,
         settings = {
-          basedpyright = {
-            analysis = { typeCheckingMode = "standard" },  -- "strict" / "off" possible
+          python = {
+            analysis = {
+              typeCheckingMode = "basic",
+              autoSearchPaths = true,
+              useLibraryCodeForTypes = true,
+            },
           },
         },
       })
 
       vim.lsp.config("gopls", {
         capabilities = capabilities,
-        on_attach    = on_attach,
+        on_attach = on_attach,
         settings = {
           gopls = {
-            analyses    = { unusedparams = true },
+            analyses = { unusedparams = true },
             staticcheck = true,
-            hints       = { assignVariableTypes = true, constantValues = true },
           },
         },
       })
 
       vim.lsp.config("rust_analyzer", {
         capabilities = capabilities,
-        on_attach    = on_attach,
+        on_attach = on_attach,
         settings = {
           ["rust-analyzer"] = {
-            check       = { command = "clippy" },
-            procMacro   = { enable = true },
+            check = { command = "clippy" },
           },
         },
       })
 
-      -- All other servers in ensure_installed → default config + shared cap/on_attach
+      vim.lsp.config("tailwindcss", {
+        capabilities = capabilities,
+        on_attach = on_attach,
+        settings = {
+          tailwindCSS = {
+            experimental = {
+              classRegex = {
+                "className=\"([^\"]*)\"",
+                "class=\"([^\"]*)\"",
+              },
+            },
+          },
+        },
+      })
+
+      vim.lsp.config("jsonls", {
+        capabilities = capabilities,
+        on_attach = on_attach,
+        settings = {
+          json = {
+            validate = { enable = true },
+          },
+        },
+      })
+
+      vim.lsp.config("yamlls", {
+        capabilities = capabilities,
+        on_attach = on_attach,
+        settings = {
+          yaml = {
+            keyOrdering = false,
+          },
+        },
+      })
     end,
   },
 }

@@ -1,40 +1,38 @@
-if not vim.g.neovide then
-  return
-end
+return {
+  {
+    "sphamba/smear-cursor.nvim",
+    opts = {
+      -- Smear / trail style (very close to Neovide defaults)
+      smear_between_buffers = true,       -- animate when jumping between buffers/windows
+      smear_between_windows = true,       -- animate across splits
+      use_floating_windows = true,        -- use floating win for the trail (cleaner)
+      legacy_computing_symbols = false,   -- better look if your font/terminal supports it
 
--- =========================
--- Neovide configuration
--- =========================
+      -- Main animation feel (tweak these to match your Neovide taste)
+      -- animation_interval = 15,            -- ms between updates (lower = smoother, but more CPU)
+      max_time_interval = 300,            -- max ms for one full animation step
 
--- Font
-vim.o.guifont = "JetBrainsMono Nerd Font:h14"
+      -- Trail length & behavior
+      -- max_length = 0.6,                   -- 0.0–1.0; higher = longer visible trail (Neovide-like ~0.5–0.8)
+      -- slope = {                           -- controls acceleration/deceleration
+        -- power = 2,
+        -- min = 0.1,
+        -- max = 0.7,
+      -- },
 
--- Scale
-vim.g.neovide_scale_factor = 1.0
+      -- Cursor character rendering
+      cursor_character = nil,             -- nil = use real cursor char
+      cursor_color = nil,                 -- nil = use normal highlight
 
--- Smooth scrolling
-vim.g.neovide_scroll_animation_length = 0.25
+      -- Optional: disable in certain modes / filetypes if distracting
+      disable_in_insert = false,
+      disable_in_visual = false,
+	  max_length = 0.75,          -- longer trail, very Neovide-ish
+	  animation_interval = 10,    -- super smooth (but ~10-20% more CPU)
+	  slope = { power = 1.5 },    -- softer easing
 
--- Cursor animation (movement smoothing)
-vim.g.neovide_cursor_animation_length = 0.2
-vim.g.neovide_cursor_trail_size = 1.0
-vim.g.neovide_cursor_antialiasing = true
-
--- Cursor VFX (VERY visible)
-vim.g.neovide_cursor_vfx_mode = "sonicboom"
-vim.g.neovide_cursor_vfx_particle_density = 10.0
-vim.g.neovide_cursor_vfx_particle_lifetime = 2.0
-
--- Transparency
-vim.g.neovide_transparency = 0.92
-vim.g.neovide_background_color = "#0f1117"
-
--- Padding
-vim.g.neovide_padding_top = 10
-vim.g.neovide_padding_bottom = 10
-vim.g.neovide_padding_left = 10
-vim.g.neovide_padding_right = 10
-
--- Window behavior
-vim.g.neovide_remember_window_size = true
-
+      -- Performance tweaks (important on lower-end machines)
+      fps = 60,                           -- target fps
+    },
+  },
+}

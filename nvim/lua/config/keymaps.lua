@@ -35,7 +35,8 @@ map("n", "<leader>fg", ":GFiles<CR>", opts)
 map("n", "<leader>fb", ":Buffers<CR>", opts)
 
 -- Terminal
-map("n", "<leader>tt", ":botright vsplit| vertical resize 75% | terminal<CR>", opts)
+-- 75%
+map("n", "<leader>tt", ":botright vsplit| vertical resize 50% | terminal<CR>", opts)
 map("t", "<Esc>", "<C-\\><C-n>", opts)
 
 -- LSP
