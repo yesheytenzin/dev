@@ -1,0 +1,21 @@
+# Window settings
+frame = "full"          # Options: "full", "none", "transparent", "buttonless"
+# frame = "transparent" # Nice on macOS/Linux with compositor support
+
+idle = true
+vsync = true
+maximized = false
+# size = "1200x800"     # Or use grid = "80x24"
+
+# Font (advanced - you can also set via guifont in Neovim)
+[font]
+normal = ["JetBrainsMono Nerd Font"]  # Replace with your preferred Nerd Font
+size = 14.0
+hinting = "full"
+edging = "subpixelantialias"
+
+# Other useful options
+fork = false
+theme = "auto"          # "light", "dark", or "auto"
+tabs = true
+title-hidden = false
