@@ -1,0 +1,20 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 14
+    },
+    "auditLog": "/home/tenz/.config/opencode/logs/.245b761dd48f6050ade66fc5e230917b104da26f-audit.json",
+    "files": [
+        {
+            "date": 1774853849498,
+            "name": "/home/tenz/.config/opencode/logs/application-2026-03-30.log",
+            "hash": "e1916e95f4f556a87e62b50a463d1c4a22372ce20d6eb416bc27dd85494dec88"
+        },
+        {
+            "date": 1775920192623,
+            "name": "/home/tenz/.config/opencode/logs/application-2026-04-11.log",
+            "hash": "6b76a5d75712c95088b251f526d881de9ae7e99812924c9e56738e5f7db1e7bc"
+        }
+    ],
+    "hashType": "sha256"
+}

@@ -1,0 +1,67 @@
+{
+  "$schema": "https://raw.githubusercontent.com/code-yeongyu/oh-my-openagent/dev/assets/oh-my-opencode.schema.json",
+  "agents": {
+    "sisyphus": {
+      "model": "minimax/MiniMax-M2.7-highspeed",
+      "variant": "max"
+    },
+    "hephaestus": {
+      "model": "minimax/MiniMax-M2.7-highspeed",
+      "variant": "medium"
+    },
+    "oracle": {
+      "model": "minimax/MiniMax-M2.7-highspeed",
+      "variant": "high"
+    },
+    "explore": {
+      "model": "minimax/MiniMax-M2.5-highspeed"
+    },
+    "multimodal-looker": {
+      "model": "minimax/MiniMax-M2.5-highspeed"
+    },
+    "prometheus": {
+      "model": "minimax/MiniMax-M2.7-highspeed",
+      "variant": "max"
+    },
+    "metis": {
+      "model": "minimax/MiniMax-M2.7-highspeed",
+      "variant": "max"
+    },
+    "momus": {
+      "model": "minimax/MiniMax-M2.7-highspeed",
+      "variant": "xhigh"
+    },
+    "atlas": {
+      "model": "minimax/MiniMax-M2.7-highspeed"
+    },
+    "sisyphus-junior": {
+      "model": "minimax/MiniMax-M2.7-highspeed"
+    }
+  },
+  "categories": {
+    "visual-engineering": {
+      "model": "minimax/MiniMax-M2.7-highspeed",
+      "variant": "high"
+    },
+    "ultrabrain": {
+      "model": "minimax/MiniMax-M2.7-highspeed",
+      "variant": "high"
+    },
+    "artistry": {
+      "model": "minimax/MiniMax-M2.7-highspeed",
+      "variant": "high"
+    },
+    "quick": {
+      "model": "minimax/MiniMax-M2.5-highspeed"
+    },
+    "unspecified-low": {
+      "model": "minimax/MiniMax-M2.7-highspeed"
+    },
+    "unspecified-high": {
+      "model": "minimax/MiniMax-M2.7-highspeed"
+    },
+    "writing": {
+      "model": "minimax/MiniMax-M2.5-highspeed"
+    }
+  }
+}
