@@ -59,7 +59,3 @@ map("n", "<leader>gs", vim.cmd.Git, opts)
 map("n", "gu", "<cmd>diffget //2<CR>", opts)
 map("n", "gh", "<cmd>diffget //3<CR>", opts)
 
--- LSP
---map("n", "K", vim.lsp.buf.hover, opts)
---map("n", "<leader>sh", vim.lsp.buf.signature_help, opts)
-
