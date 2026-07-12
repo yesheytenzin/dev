@@ -59,3 +59,15 @@ map("n", "<leader>gs", vim.cmd.Git, opts)
 map("n", "gu", "<cmd>diffget //2<CR>", opts)
 map("n", "gh", "<cmd>diffget //3<CR>", opts)
 
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "netrw",
+  callback = function()
+    local opts = { remap = true, buffer = true, silent = true }
+
+    -- Press 'nf' to create a New File
+    vim.keymap.set("n", "nf", "%", opts)
+
+    -- Press 'nd' to create a New Directory
+    vim.keymap.set("n", "nd", "d", opts)
+  end,
+})
