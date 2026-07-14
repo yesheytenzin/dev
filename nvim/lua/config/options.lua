@@ -14,6 +14,9 @@ opt.scrolloff = 5
 opt.fillchars = { eob = " " }
 opt.clipboard = "unnamedplus"
 opt.laststatus = 3  -- for avante (commented out to disable statusline)
+opt.smartindent = true
+opt.expandtab = true
+opt.colorcolumn = "140"
 
 -- persistent undo
 opt.undofile = true
