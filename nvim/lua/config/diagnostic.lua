@@ -1,9 +1,9 @@
 vim.diagnostic.config({
     underline = false,
-    -- virtual_text = {
-        -- spacing = 2,
-        -- prefix = "●",
-    -- },
+    virtual_text = {
+        spacing = 2,
+        prefix = "●",
+    },
     update_in_insert = false,
     severity_sort = true,
     signs = {

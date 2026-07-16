@@ -3,7 +3,7 @@ local opts = { noremap = true, silent = true }
 
 -- General
 map("n", "<Space>", "", {})  -- Space as leader
-map("n", "<leader>h", ":nohlsearch<CR>", opts)  -- Clear search highlight
+map("n", "esc", ":noh", opts)  -- Clear search highlight
 map("n", "<leader>e", ":e .<CR>", opts)  -- Open file explorer
 
 -- Resize windows
