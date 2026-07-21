@@ -1,9 +1,9 @@
 vim.diagnostic.config({
     underline = false,
-    virtual_text = {
-        spacing = 2,
-        prefix = "●",
-    },
+    -- virtual_text = {
+    --     spacing = 20,
+    --     prefix = "●",
+    -- },
     update_in_insert = false,
     severity_sort = true,
     signs = {
@@ -16,4 +16,4 @@ vim.diagnostic.config({
         },
     },
 })
-
+vim.keymap.set("n", "<leader>d", vim.diagnostic.open_float)

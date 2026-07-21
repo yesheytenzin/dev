@@ -14,8 +14,10 @@ opt.scrolloff = 5
 opt.fillchars = { eob = " " }
 opt.clipboard = "unnamedplus"
 opt.laststatus = 3  -- for avante (commented out to disable statusline)
-opt.smartindent = true
 opt.expandtab = true
+
+-- Filetype-based indentation (required for Ruby end, etc.)
+vim.cmd("filetype plugin indent on")
 opt.colorcolumn = "140"
 opt.swapfile = false
 
