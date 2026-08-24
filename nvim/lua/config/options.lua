@@ -1,29 +1,14 @@
-local opt = vim.opt
+-- Options are automatically loaded before lazy.nvim startup
+-- Default options that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/options.lua
+-- Add any additional options here
+require('config.remote_clipboard').setup()
+vim.opt.relativenumber = false
+vim.g.autoformat = false
 
-opt.number = true
-opt.relativenumber = true
-opt.mouse = "a"
-opt.autoindent = true
-opt.tabstop = 2
-opt.softtabstop = 2
-opt.shiftwidth = 2
-opt.visualbell = true
-opt.scrolloff = 5
-opt.clipboard = "unnamedplus"
-opt.laststatus = 3
-opt.cmdheight = 0
-opt.swapfile = false
+vim.api.nvim_create_autocmd("BufEnter", {
+  callback = function()
+    vim.diagnostic.config({ virtual_text = false, signs = false })
+  end,
+})
+vim.keymap.set("n", "gl", vim.diagnostic.open_float, { desc = "Line Diagnostics" })
 
--- persistent undo
-opt.undofile = true
-opt.undodir = vim.fn.stdpath("data") .. "/undo"
-
-
--- Start Neovim server for remote control (enables theme-change hooks)
--- Check if server is already running, if not start one
-vim.defer_fn(function()
-    if vim.v.servername == "" then
-        local server_name = vim.fn.stdpath("run") .. "/nvim." .. vim.fn.getpid() .. ".sock"
-        vim.fn.serverstart(server_name)
-    end
-end, 100)

@@ -1,6 +1,0 @@
-require("config.options")
-require("config.diagnostics")
-require("config.netrw")
-require("config.keymaps")
-require("config.rails")
-require("config.cpp")
