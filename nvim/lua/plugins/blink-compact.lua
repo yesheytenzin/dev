@@ -1,23 +1,54 @@
--- Square border only on blink popup (others remain borderless)
+-- Better blink menu: Omarchy-aware, spacious, informative (keeps single border for insert)
 return {
   "saghen/blink.cmp",
+  version = "*",
+  event = "InsertEnter",
+  dependencies = { "saghen/blink.lib", "rafamadriz/friendly-snippets" },
   opts = {
-    cmdline = { enabled = false }, -- : menu stays native (winborder=none), blink border only for insert
-    appearance = { nerd_font_variant = "mono", use_nvim_cmp_as_default = true },
+    keymap = { preset = "enter", ["<C-y>"] = { "select_and_accept" } },
+    cmdline = { enabled = false }, -- : stays native (winborder=none)
+    appearance = {
+      nerd_font_variant = "mono",
+      use_nvim_cmp_as_default = true,
+      kind_icons = {
+        -- keep LazyVim defaults, just ensure aligned mono
+      },
+    },
     completion = {
       menu = {
         border = "single",
         winblend = 0,
-        winhighlight = "Normal:Pmenu,FloatBorder:FloatBorder,CursorLine:PmenuSel,Search:None",
-        scrollbar = false,
-        scrolloff = 0,
-        max_height = 6,
-        min_width = 12,
+        winhighlight = "Normal:BlinkCmpMenu,FloatBorder:BlinkCmpMenuBorder,CursorLine:BlinkCmpMenuSelection,Search:None",
+        scrollbar = true,
+        scrolloff = 2,
+        max_height = 10,
+        min_width = 18,
         direction_priority = { "s", "n" },
-        draw = { align_to = "label", padding = 0, gap = 1, columns = { { "label", gap = 1 }, { "kind_icon" } } },
+        draw = {
+          align_to = "label",
+          padding = 1,
+          gap = 1,
+          treesitter = { "lsp" },
+          columns = {
+            { "kind_icon", gap = 1 },
+            { "label", "label_description", gap = 1 },
+            { "source_name" },
+          },
+        },
       },
-      documentation = { auto_show = false, window = { border = "single", winblend = 0, winhighlight = "Normal:NormalFloat,FloatBorder:FloatBorder", max_width = 40, max_height = 6 } },
+      documentation = {
+        auto_show = true,
+        auto_show_delay_ms = 200,
+        window = {
+          border = "single",
+          winblend = 0,
+          winhighlight = "Normal:BlinkCmpDoc,FloatBorder:BlinkCmpDocBorder",
+          max_height = 12,
+        },
+      },
       ghost_text = { enabled = false },
+      list = { selection = { preselect = true, auto_insert = false } },
     },
+    signature = { enabled = false },
   },
 }

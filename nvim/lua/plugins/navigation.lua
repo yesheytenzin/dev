@@ -1,15 +1,18 @@
--- RubyMine-style "Search Everywhere" polish: faster/accurate finding
+-- RubyMine-style "Search Everywhere" polish: faster/accurate finding (fixed: telescope now works without fzf-native)
 return {
-  -- 1) Make telescope filtering as fast & accurate as RubyMine's index (fzf-native)
+  -- 1) Make telescope filtering as fast & accurate as RubyMine's index (fzf-native optional)
   {
     "nvim-telescope/telescope.nvim",
     cmd = "Telescope",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      { "nvim-telescope/telescope-fzf-native.nvim", build = "make", cond = function() return vim.fn.executable("make") == 1 end },
+    },
     opts = {
       defaults = {
         sorting_strategy = "descending",
         layout_strategy = "horizontal",
         layout_config = { prompt_position = "bottom", preview_width = 0.55 },
-        -- snappier cycling, mirror RubyMine's Up/Down in search
         mappings = {
           i = {
             ["<C-j>"] = function(...)
@@ -29,17 +32,26 @@ return {
       },
       extensions = {
         fzf = {
-          fuzzy = true, -- false = exact, true = fzf's fuzzy (RubyMine-like)
-          override_generic_sorter = true, -- use fzf for lsp/grep (symbols!)
-          override_file_sorter = true, -- use fzf for files (path finding)
-          case_mode = "smart_case", -- RubyMine respects case only when you type caps
+          fuzzy = true,
+          override_generic_sorter = true,
+          override_file_sorter = true,
+          case_mode = "smart_case",
         },
       },
     },
+    config = function(_, opts)
+      require("telescope").setup(opts)
+      pcall(require("telescope").load_extension, "fzf")
+    end,
     keys = {
-      -- treesitter symbols: instant, accurate, no LSP wait — RubyMine's "Go to Symbol in file" fallback
+      -- core telescope (restored after pure-lazy refactor)
+      { "<leader>ff", "<cmd>Telescope find_files<cr>", desc = "Find Files" },
+      { "<leader>fg", "<cmd>Telescope live_grep<cr>", desc = "Grep" },
+      { "<leader>fb", "<cmd>Telescope buffers<cr>", desc = "Buffers" },
+      { "<leader>fh", "<cmd>Telescope help_tags<cr>", desc = "Help" },
+      { "<leader>fo", "<cmd>Telescope oldfiles<cr>", desc = "Old Files" },
+      -- treesitter symbols: instant, accurate, no LSP wait
       { "<leader>fs", "<cmd>Telescope treesitter<cr>", desc = "Symbols (Treesitter) — instant, no LSP" },
-      -- path helpers — RubyMine "Copy Path" / "Find in buffer dir"
       {
         "<leader>fd",
         function()
@@ -67,7 +79,7 @@ return {
       },
     },
   },
-  -- 2) Incremental rename preview — RubyMine's inline rename (overrides <leader>cr when active)
+  -- 2) Incremental rename preview — RubyMine's inline rename
   {
     "smjonas/inc-rename.nvim",
     cmd = "IncRename",

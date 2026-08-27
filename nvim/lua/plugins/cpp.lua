@@ -2,6 +2,7 @@
 return {
   {
     "nvim-treesitter/nvim-treesitter",
+    event = { "BufReadPost", "BufNewFile" },
     opts = { ensure_installed = { "c", "cpp", "cmake", "make", "ruby", "yaml", "json", "bash", "regex", "sql" } },
   },
   {
