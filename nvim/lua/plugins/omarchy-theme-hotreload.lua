@@ -2,7 +2,8 @@ return {
 	{
 		name = "theme-hotreload",
 		dir = vim.fn.stdpath("config"),
-		lazy = false,
+		lazy = true,
+		event = "VeryLazy",
 		priority = 1000,
 		config = function()
 			local transparency_file = vim.fn.stdpath("config") .. "/plugin/after/transparency.lua"
