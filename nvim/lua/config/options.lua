@@ -9,6 +9,9 @@ vim.opt.timeoutlen = 200 -- faster leader recog (was 300)
 vim.opt.ttimeoutlen = 10 -- key code fast
 vim.opt.updatetime = 150 -- faster CursorHold / which-key (was 200)
 vim.opt.mouse = ""
+vim.opt.undofile = true
+vim.opt.undolevels = 10000
+vim.opt.undodir = vim.fn.stdpath("state") .. "/undo"
 vim.opt.ttyfast = true
 vim.opt.redrawtime = 1500
 vim.opt.clipboard = "unnamedplus"
@@ -29,5 +32,16 @@ vim.opt.maxmempattern = 20000
 vim.api.nvim_create_autocmd("TextYankPost", {
   callback = function()
     vim.highlight.on_yank()
+  end,
+})
+
+-- Fully disable mouse: no click, no scroll, no drag
+vim.opt.mousescroll = "ver:0,hor:0"
+vim.api.nvim_create_autocmd({ "OptionSet" }, {
+  pattern = "mouse",
+  callback = function()
+    if vim.o.mouse ~= "" then
+      vim.opt.mouse = ""
+    end
   end,
 })

@@ -37,18 +37,14 @@ require("lazy").setup({
     rtp = {
       disabled_plugins = {
         "gzip",
-        "health",
-        "man",
         "matchit",
         "matchparen",
         "rplugin",
-        "shada",
         "spellfile",
         "tarPlugin",
         "tohtml",
         "tutor",
         "zipPlugin",
-        "editorconfig",
         "vimball",
         "vimballPlugin",
         "getscript",
