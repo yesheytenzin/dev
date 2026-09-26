@@ -1,0 +1,7 @@
+# Hybrid Intel + NVIDIA laptop: render Hyprland on the Intel iGPU (which drives
+# the laptop panel) and keep the NVIDIA dGPU as secondary (external outputs).
+# Resolved by PCI path because card0/card1 numbering can change between boots.
+_igpu="$(readlink -f /dev/dri/by-path/pci-0000:00:02.0-card)"
+_dgpu="$(readlink -f /dev/dri/by-path/pci-0000:01:00.0-card)"
+[ -n "$_igpu" ] && export AQ_DRM_DEVICES="$_igpu${_dgpu:+:$_dgpu}"
+unset _igpu _dgpu
